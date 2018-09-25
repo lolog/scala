@@ -25,7 +25,7 @@ object Extractor {
       }
       def unapply(str: String): Option[(String, Int)] = {
         val words: Array[String] = str.split(" ")
-        Some[(String, Int)](words(0) -> words(1).toInt)
+        Option[(String, Int)](words(0) -> words(1).toInt)
       }
     }
     println("unapply")
@@ -35,5 +35,18 @@ object Extractor {
 
     val EXPerson(n, a) = "Leo 20"
     println("    name=" + n + ", age=" + a)
+
+    /**
+      * 只有一个参数的提取器
+      * 现在我们来想一下,如果你的类只有一个字段,字符串里面只有一个字段,解析出来的一个字段,是没有办法
+      * 放在Tuple中的,因为Scala中的Tuple规定了,必须要2个以及2个以上的值。
+      * 那么,在提取器unapply方法中,只能将一个字段值封装在Some对象中返回。
+      */
+    class EIPerson(val name: String)
+    object EIPerson {
+      def unapply(str: String): Option[String] = Some(str)
+    }
+    val EIPerson(ename) = "Leo"
+    println("\nOnly one parameter unapply, name=" + ename)
   }
 }
