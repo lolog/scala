@@ -47,7 +47,7 @@ object ConditionControl {
     //+++++++++++++ if表达式的类型推断  +++++++++++++//
     // 由于if/else表达式是有值的, 而if/else字句的值类型可能不同, 此时if表达式的值是什么类型呢?
     // 答：scala会自动进行推断的, 取2个类型的公共父类型
-    var condition: Boolean = true
+    val condition: Boolean = true
     val flag = if (condition) 1 else 0 // flag为Int类型
     val author = if (condition) "author" else 0 // Any是String和Int的公共父类
     val info = if (condition) "infomation" // 如果if后面没有跟else,则默认else的值时Util类型, 用()表示, 类似于java中的void或者null。
@@ -57,7 +57,7 @@ object ConditionControl {
     //+++++++++++++ 将if语句放在多行中  +++++++++++++//
     // 默认情况下, REPL只能解释if表达式的一条语句, 如果if表达式通常包含多行语句, 可以使用{}的方式。
     // 或者在命令行中,使用:paste和ctrl+D的方式
-    var str:Any = if(condition) {
+    val str:Any = if(condition) {
       name = "felix"
       name
     }
@@ -80,10 +80,10 @@ object ConditionControl {
   }
 
   def doWhile(): Unit = {
-    var flag: Boolean = false
+    val flag: Boolean = false
     do {
       println("do while")
-    } while (flag);
+    } while (flag)
     println()
   }
 
@@ -114,36 +114,36 @@ object ConditionControl {
 
     // for each
     println("for each")
-    var files: Array[File] = new File(".").listFiles();
+    val files: Array[File] = new File(".").listFiles()
     for (file: File <- files)
       println("    " + file.getAbsolutePath)
 
+    println("breakable")
     breakable {
       for (chr <- "Hello World") {
-        if (chr == 'W') break;
-        print(chr + " ")
+        if (chr == 'r') break
+        print("    " + chr + " ")
       }
     }
 
     // 多重for循环, 99乘法表
-    println()
+    println("\n多重for循环")
     for(i <-1 to 9; j <- 1 to 9) {
       if(j == 9) {
-        println(i + "*" + j + "=" + (i * j) + "  ")
+        println("    " + i + "*" + j + "=" + (i * j) + "  ")
       }
       else {
-        print(i +"*" + j + "=" + (i * j) + "  ")
+        print("    " + i +"*" + j + "=" + (i * j) + "  ")
       }
     }
 
     // if守卫, 取偶数
-    for(i <- 1 to 10 if i % 2 == 0) print(i + " ")
+    println("for - if")
+    for(i <- 1 to 10 if i % 2 == 0) print("    " + i)
 
     // for推导式, 构造集合
-    println()
+    println("\nfor - yield")
     val y = for(i <- 1 to 10) yield i
-    println(y)
-
-    println()
+    println("    " + y)
   }
 }
